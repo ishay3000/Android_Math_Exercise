@@ -3,6 +3,7 @@ package com.example.ishaycena.math_exercise;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,52 +38,55 @@ public class Game_Activity extends AppCompatActivity {
     View.OnClickListener btnListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            try {
-                if (v instanceof Button) {
 
+            ButtonListenerFunc(v);
 
-
-                    Button tmpBtn = (Button) v;
-                    String resValue = String.format(Locale.ENGLISH, "%.2f", result);
-
-                    if (tmpBtn.getText().equals(resValue)) {
-                        // if this is the first guess in this round
-                        if (isFirstGuess){
-                            ++totalScore;//increment total score
-                            //TODO: Add score to a SharedPreference @Dor @Ya Mesanen
-                            //editor.putInt("Your score:",totalScore);
-                            //editor.commit();
-                        }
-
-                        Toast.makeText(Game_Activity.this, "Correct !", Toast.LENGTH_SHORT).show();
-                        ++roundNum;
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                //my_button.setBackgroundResource(R.drawable.defaultcard);
-                                btnsArr[arrBtnPosition].setBackgroundColor(Color.GREEN);
-                            }
-                        }, 0);
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                StartGameRound(roundNum);
-
-                            }
-                        }, 2000);
-
-                    } else {
-                        isFirstGuess = false;
-                        tmpBtn.setEnabled(false);
-                        tmpBtn.setBackgroundColor(Color.RED);
-                        Toast.makeText(Game_Activity.this, "Incorrect !", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }catch (Exception ex){
-                Toast.makeText(Game_Activity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
-            }
+//            try {
+//                if (v instanceof Button) {
+//
+//
+//
+//                    Button tmpBtn = (Button) v;
+//                    String resValue = String.format(Locale.ENGLISH, "%.2f", result);
+//
+//                    if (tmpBtn.getText().equals(resValue)) {
+//                        // if this is the first guess in this round
+//                        if (isFirstGuess){
+//                            ++totalScore;//increment total score
+//                            //TODO: Add score to a SharedPreference @Dor @Ya Mesanen
+//                            //editor.putInt("Your score:",totalScore);
+//                            //editor.commit();
+//                        }
+//
+//                        Toast.makeText(Game_Activity.this, "Correct !", Toast.LENGTH_SHORT).show();
+//                        ++roundNum;
+//
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                //my_button.setBackgroundResource(R.drawable.defaultcard);
+//                                btnsArr[arrBtnPosition].setBackgroundColor(Color.GREEN);
+//                            }
+//                        }, 0);
+//
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                StartGameRound(roundNum);
+//
+//                            }
+//                        }, 2000);
+//
+//                    } else {
+//                        isFirstGuess = false;
+//                        tmpBtn.setEnabled(false);
+//                        tmpBtn.setBackgroundColor(Color.RED);
+//                        Toast.makeText(Game_Activity.this, "Incorrect !", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }catch (Exception ex){
+//                Toast.makeText(Game_Activity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+//            }
         }
     };
 
@@ -113,6 +117,8 @@ public class Game_Activity extends AppCompatActivity {
     //SharedPreferences prefs = getSharedPreferences("MyPreferences", MODE_PRIVATE);
     //SharedPreferences.Editor editor = prefs.edit();
 
+    int startTimer = 3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +145,18 @@ public class Game_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     btnStartGame.setVisibility(View.INVISIBLE);
-                    StartGameRound(roundNum);
+
+                    new CountDownTimer(3000, 1000){
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            tvEquation.setText(String.format(Locale.ENGLISH, "%d...", startTimer--));
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            StartGameRound(roundNum);
+                        }
+                    }.start();
                 }
             });
 
@@ -151,6 +168,56 @@ public class Game_Activity extends AppCompatActivity {
 
         }catch (Exception ex){
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    protected void ButtonListenerFunc(View v){
+        try {
+            if (v instanceof Button) {
+
+
+
+                Button tmpBtn = (Button) v;
+                String resValue = String.format(Locale.ENGLISH, "%.2f", result);
+
+                if (tmpBtn.getText().equals(resValue)) {
+                    // if this is the first guess in this round
+                    if (isFirstGuess){
+                        ++totalScore;//increment total score
+                        //TODO: Add score to a SharedPreference @Dor @Ya Mesanen
+                        //editor.putInt("Your score:",totalScore);
+                        //editor.commit();
+                    }
+
+                    Toast.makeText(Game_Activity.this, "Correct !", Toast.LENGTH_SHORT).show();
+                    ++roundNum;
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //my_button.setBackgroundResource(R.drawable.defaultcard);
+                            btnsArr[arrBtnPosition].setBackgroundColor(Color.GREEN);
+                        }
+                    }, 0);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            StartGameRound(roundNum);
+
+                        }
+                    }, 2000);
+
+                } else {
+                    isFirstGuess = false;
+                    tmpBtn.setEnabled(false);
+                    tmpBtn.setBackgroundColor(Color.RED);
+                    Toast.makeText(Game_Activity.this, "Incorrect !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }catch (Exception ex){
+            Toast.makeText(Game_Activity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -218,6 +285,8 @@ public class Game_Activity extends AppCompatActivity {
 
             RollFakes();
             PutFakeValues();
+
+            //TODO: Add a CountDownTimer for each round
 
         }catch (Exception ex){
             Toast.makeText(Game_Activity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
