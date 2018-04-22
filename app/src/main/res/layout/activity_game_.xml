@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Game_Activity">
+
+    <LinearLayout
+        android:paddingLeft="160dp"
+        android:paddingTop="50dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Start the game !"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="90dp"
+            android:textColor="#009914"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:id="@+id/tvEquation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Start Game"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/btnStartGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#0006a6"
+            android:id="@+id/btnAns1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnAns2"
+            android:layout_marginBottom="10dp"
+            android:textColor="#0006a6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnAns3"
+            android:layout_marginBottom="10dp"
+            android:textColor="#0006a6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnAns4"
+            android:layout_marginBottom="10dp"
+            android:textColor="#0006a6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
